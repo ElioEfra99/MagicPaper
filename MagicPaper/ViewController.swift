@@ -50,10 +50,21 @@ extension ViewController: ARSCNViewDelegate {
         let node = SCNNode()
         
         if let imageAnchor = anchor as? ARImageAnchor {
+            
+            let videoNode = SKVideoNode(fileNamed: "harry-potter.mp4")
+            videoNode.play()
+            
+            let videoScene = SKScene(size: CGSize(width: 480, height: 360))
+            
+            videoNode.position = CGPoint(x: videoScene.size.width / 2, y: videoScene.size.height / 2)
+            videoNode.yScale = -1.0
+            
+            videoScene.addChild(videoNode)
+            
             let imageDimension = imageAnchor.referenceImage.physicalSize
             let plane = SCNPlane(width: imageDimension.width, height: imageDimension.height)
             
-            plane.materials.first?.diffuse.contents = UIColor(white: 1.0, alpha: 0.5)
+            plane.materials.first?.diffuse.contents = videoScene
             
             let planeNode = SCNNode(geometry: plane)
              
